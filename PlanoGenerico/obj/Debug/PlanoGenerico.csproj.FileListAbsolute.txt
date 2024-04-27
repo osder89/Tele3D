@@ -26,3 +26,5 @@ D:\UAGRM\Grafica\PlanoGenerico\PlanoGenerico\obj\Debug\PlanoGenerico.csproj.Core
 D:\UAGRM\Grafica\PlanoGenerico\PlanoGenerico\obj\Debug\PlanoGenerico.csproj.CopyComplete
 D:\UAGRM\Grafica\PlanoGenerico\PlanoGenerico\obj\Debug\PlanoGenerico.exe
 D:\UAGRM\Grafica\PlanoGenerico\PlanoGenerico\obj\Debug\PlanoGenerico.pdb
+D:\UAGRM\Grafica\PlanoGenerico\PlanoGenerico\bin\Debug\Newtonsoft.Json.dll
+D:\UAGRM\Grafica\PlanoGenerico\PlanoGenerico\bin\Debug\Newtonsoft.Json.xml
