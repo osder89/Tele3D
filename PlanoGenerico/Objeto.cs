@@ -8,45 +8,39 @@ namespace PlanoGenerico
     public class Objeto
     {
         public Dictionary<string, Partes> PartesObjeto { get; private set; }
-        private Punto centro { get; set; }
-        private Punto centroEscenario { get; set; }
+        public Punto centroDeMasa { get; set; }
 
         public Objeto()
         {
             PartesObjeto = new Dictionary<string, Partes>();
-            this.centro = new Punto(0, 0, 0);
-            this.centroEscenario = new Punto(0, 0, 0);
         }
 
-        public Objeto(Dictionary<string, Partes> partes, Punto centro)
+        public Objeto(Dictionary<string, Partes> partes, Punto centroDeMasa)
         {
-            this.centro = centro;
-            this.centroEscenario = new Punto(0, 0, 0);
-            this.PartesObjeto = partes;   
+            PartesObjeto = partes;
+            this.centroDeMasa = centroDeMasa;
         }
 
-        public void setEscenarioCentro(Punto centroEscenario)
+        public void AgregarPartes(string nombrePartes, Partes partes)
         {
-            this.centroEscenario = centroEscenario; 
-            foreach (var parte in PartesObjeto.Values)
-            {
-                parte.setCentroResto(this.centro + this.centroEscenario);
-            }
-        }
-
-        public void AgregarPartes(string nombrePartes, Partes partes)  
-        {
-            
             PartesObjeto.Add(nombrePartes, partes);
         }
 
-        public void DibujarObjeto(Punto escenarioCentro)
+        public void DibujarObjeto()
         {
-            Punto centroObejto = escenarioCentro + this.centro;
             foreach (Partes partes in PartesObjeto.Values)
             {
-                partes.DibujarFigura(centroObejto);
+                partes.SumarCentroDeMasa(centroDeMasa);
+                partes.DibujarFigura();
             }
+        }
+        public void SumarCentroDeMasa(Punto centroDeMasaPadre)
+        {
+            this.centroDeMasa = new Punto(
+                this.centroDeMasa.x + centroDeMasaPadre.x,
+                this.centroDeMasa.y + centroDeMasaPadre.y,
+                this.centroDeMasa.z + centroDeMasaPadre.z
+            );
         }
     }
 }

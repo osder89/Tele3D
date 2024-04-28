@@ -8,27 +8,21 @@ namespace PlanoGenerico
     public class Escenario
     {
         public Dictionary<string, Objeto> ObejtosEscenario { get; private set; }
-        public Punto centro { get; set; }
+        public Punto centroDeMasa { get; set; }
 
         public Escenario()
         {
             ObejtosEscenario = new Dictionary<string, Objeto>();
-            this.centro = new Punto (0, 0, 0);
         }
 
-        public Escenario(Dictionary<string, Objeto> objetos, Punto centro) 
+        public Escenario(Dictionary<string, Objeto> objeto, Punto centroDeMasa)
         {
-            ObejtosEscenario = objetos;
-            this.centro = centro;
-            foreach (Objeto objeto in objetos.Values)
-            {
-                objeto.setEscenarioCentro(this.centro);
-            }
+            ObejtosEscenario = objeto;
+            this.centroDeMasa = centroDeMasa;
         }
 
-        public void AgregarObjeto(string nombreObjeto, Objeto Objeto) 
+        public void AgregarObjeto(string nombreObjeto, Objeto Objeto)
         {
-            
             ObejtosEscenario.Add(nombreObjeto, Objeto);
         }
 
@@ -36,8 +30,7 @@ namespace PlanoGenerico
         {
             foreach (Objeto Objeto in ObejtosEscenario.Values)
             {
-                
-                Objeto.DibujarObjeto(centro);
+                Objeto.DibujarObjeto();
             }
         }
     }
