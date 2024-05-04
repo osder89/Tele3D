@@ -26,23 +26,58 @@ namespace PlanoGenerico
             
         }
 
+
+
+        public void TransladarCaras(float x, float y, float z)
+        {
+            foreach (Cara cara in Figura.Values)
+            {
+                cara.Trasladar(x, y, z);
+            }
+        }
+
+        public void ScalarCaras(float n)
+        {
+            foreach (Cara cara in Figura.Values)
+            {
+                cara.Scalar(n);
+            }
+        }
+
+        public void ScalarCentroDeMasa(Punto origin, float n)
+        {
+            foreach (Cara cara in Figura.Values)
+            {
+                cara.ScalarCentroDeMasa(origin, n);
+            }
+        }
+
+        public void RotarCaras(string axis, float grades)
+        {
+            foreach (Cara cara in Figura.Values)
+            {
+                cara.Rotar(axis, grades);
+            }
+        }
+
+        public void RotarCentroDeMasa(Punto origin, string axis, float grades)
+        {
+            foreach (Cara cara in Figura.Values)
+            {
+                cara.RotarCentroDeMasa(origin, axis, grades);
+            }
+        }
+
         public void DibujarFigura()
         {
             foreach (Cara cara in Figura.Values)
             {
-                GL.PushMatrix(); 
-                GL.Translate(centroDeMasa.x, centroDeMasa.y, centroDeMasa.z); 
+                GL.PushMatrix();
+                GL.Translate(centroDeMasa.x, centroDeMasa.y, centroDeMasa.z);
                 cara.dibujar();
-                GL.PopMatrix(); 
+                GL.PopMatrix();
             }
         }
-        public void SumarCentroDeMasa(Punto centroDeMasaPadre)
-        {
-            this.centroDeMasa = new Punto(
-                this.centroDeMasa.x + centroDeMasaPadre.x,
-                this.centroDeMasa.y + centroDeMasaPadre.y,
-                this.centroDeMasa.z + centroDeMasaPadre.z
-            );
-        }
+
     }
 }

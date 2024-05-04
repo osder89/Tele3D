@@ -59,8 +59,10 @@
     <Compile Include="Partes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Punto.cs" />
+    <Compile Include="Serializacion.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="Objeto.cs" />
+    <Compile Include="Transformaciones.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

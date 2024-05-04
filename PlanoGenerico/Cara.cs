@@ -3,11 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
+using OpenTK;
 
 using OpenTK.Graphics;
-
-
-
 
 
 namespace PlanoGenerico
@@ -15,55 +13,91 @@ namespace PlanoGenerico
     public class Cara
     {
         public List<Punto> listaDePuntos { get; set; }
-        public String nombre { get; set; }
+        public string nombre { get; set; }
         public Color4 color { get; set; }
-        private Punto centroC;
-        private Punto centroAcarreado;
 
-
+        private Matrix4 transformaciones;
+        private Matrix4 transformacionesInversas;
 
         public Cara()
         {
             listaDePuntos = new List<Punto>();
-            this.centroC = new Punto(0, 0, 0);
-            this.centroAcarreado = new Punto(0, 0, 0);
-            this.color = Color.Black; 
-            this.nombre = "";
+            color = Color4.Black;
+            nombre = "";
+            transformaciones = Matrix4.Identity;
+            transformacionesInversas = Matrix4.Identity;
         }
-        public Cara(List<Punto> lista, Color color)
+
+        public Cara(List<Punto> lista, Color4 color)
         {
-            this.centroC = new Punto(0, 0, 0);
-            this.centroAcarreado = new Punto(0, 0, 0);
-            this.listaDePuntos = lista;
+            listaDePuntos = lista;
             this.color = color;
-
+            nombre = "";
+            transformaciones = Matrix4.Identity;
+            transformacionesInversas = Matrix4.Identity;
         }
-
-       /* public void setCentroAcarreado(Punto centroAcarreado)
-        {
-            this.centroAcarreado = centroAcarreado + centroC;
-            this.matriz.SetCentro(this.centroAcarreado.X, this.centroAcarreado.Y, this.centroAcarreado.Z);
-        }*/
 
         public void addPunto(Punto vertice)
         {
-            this.listaDePuntos.Add(vertice);
+            listaDePuntos.Add(vertice);
         }
-        public List<Punto> getCara()
+
+        public void Trasladar(float x, float y, float z)
         {
-            return this.listaDePuntos;
+            transformaciones = Matrix4.Mult(transformaciones, Matrix4.CreateTranslation(x, y, z));
+            transformacionesInversas = Matrix4.Mult(Matrix4.CreateTranslation(-x, -y, -z), transformacionesInversas);
         }
-        //dibuja la cara
+
+        public void Scalar(float n)
+        {
+            transformaciones = Matrix4.Mult(transformaciones, Matrix4.CreateScale(n));
+            transformacionesInversas = Matrix4.Mult(Matrix4.CreateScale(1.0f / n), transformacionesInversas);
+        }
+
+        public void ScalarCentroDeMasa(Punto origin, float n)
+        {
+            Trasladar(-origin.x, -origin.y, -origin.z);
+            Scalar(n);
+            Trasladar(origin.x, origin.y, origin.z);
+        }
+
+        public void Rotar(string axis, float grades)
+        {
+            float radians = MathHelper.DegreesToRadians(grades);
+            Matrix4 rotationMatrix = Matrix4.Identity;
+
+            if (axis == "x")
+                rotationMatrix = Matrix4.CreateRotationX(radians);
+            else if (axis == "y")
+                rotationMatrix = Matrix4.CreateRotationY(radians);
+            else if (axis == "z")
+                rotationMatrix = Matrix4.CreateRotationZ(radians);
+
+            transformaciones = Matrix4.Mult(transformaciones, rotationMatrix);
+            transformacionesInversas = Matrix4.Mult(rotationMatrix, transformacionesInversas);
+        }
+
+        public void RotarCentroDeMasa(Punto origin, string axis, float grades)
+        {
+            Trasladar(-origin.x, -origin.y, -origin.z);
+            Rotar(axis, grades);
+            Trasladar(origin.x, origin.y, origin.z);
+        }
+
         public void dibujar()
         {
-            GL.Begin(PrimitiveType.Quads);
             GL.Color4(color);
-            foreach (Punto punto in this.listaDePuntos)
+            GL.Begin(PrimitiveType.Quads);
+
+            foreach (Punto punto in listaDePuntos)
             {
-                GL.Vertex3(punto.getX(), punto.getY(), punto.getZ());
+                Vector4 puntoTransformado = Vector4.Transform(new Vector4(punto.x, punto.y, punto.z, 1.0f), transformaciones);
+                GL.Vertex3(puntoTransformado.X, puntoTransformado.Y, puntoTransformado.Z);
             }
+
             GL.End();
         }
     }
+
 
 }
