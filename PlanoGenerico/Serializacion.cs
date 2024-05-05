@@ -21,7 +21,6 @@ namespace PlanoGenerico
             Escenario escenario = JsonConvert.DeserializeObject<Escenario>(json);
             string jsonEscenario = JsonConvert.SerializeObject(escenario, Formatting.Indented);
             Console.WriteLine(jsonEscenario);
-
             return escenario;
         }
     }

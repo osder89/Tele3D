@@ -122,7 +122,7 @@ namespace PlanoGenerico
                 if (Keyboard.GetState().IsKeyDown(Key.S))
                 {
 
-                    televisor.RotarConCentroDeMasa(new Punto(1, 1, 2f),"y", 0.5f); // Traslación hacia atrás
+                    televisor.RotarConCentroDeMasa(new Punto(1, 1, 2f),"x", 0.5f); // Traslación hacia atrás
                 }
                 if (Keyboard.GetState().IsKeyDown(Key.X))
                 {
