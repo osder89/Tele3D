@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animacion.cs" />
     <Compile Include="Cara.cs" />
     <Compile Include="Escenario.cs" />
     <Compile Include="Game.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Serializacion.cs" />
     <Compile Include="Shader.cs" />
     <Compile Include="Objeto.cs" />
+    <Compile Include="Transformacion.cs" />
     <Compile Include="Transformaciones.cs" />
   </ItemGroup>
   <ItemGroup>

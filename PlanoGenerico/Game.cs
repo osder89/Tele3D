@@ -3,9 +3,9 @@ using OpenTK.Graphics;
 using OpenTK.Input;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using Newtonsoft.Json;
-using System.IO;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Threading;
+
 
 
 
@@ -41,7 +41,24 @@ namespace PlanoGenerico
             {
                 GL.ClearColor(Color4.White);            
                 string nombreArchivo = @"D:\UAGRM\Grafica\escenario.json";
-                escenario = serializacion.CargarEscenario(nombreArchivo);            
+                escenario = serializacion.CargarEscenario(nombreArchivo);
+                Objeto florero = escenario.ObtenerObjetoPorNombre("florero");
+                Partes partePetalos = florero.ObtenerPartePorNombre("floreroBase");
+
+
+                Thread animacionThread = new Thread(() =>
+                {
+                    Animacion animacion = new Animacion(florero, 1.0f); // Tiempo entre transformaciones en segundos
+                    animacion.AgregarTransformacion(new Transformacion("Traslacion", 10, 0, 0));
+                    animacion.AgregarTransformacion(new Transformacion("Escalado", 2, new Punto(0, 0, 0))); // Origen de la escala
+                    animacion.AgregarTransformacion(new Transformacion("Rotacion", "y", 90, new Punto(0, 0, 0))); // Origen de la rotación
+
+                    // Ejecutar la animación
+                    animacion.EjecutarAnimacion();
+                });
+
+                animacionThread.Start();
+
                 base.OnLoad(e);
             }
            
