@@ -53,10 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acciones.cs" />
     <Compile Include="Animacion.cs" />
     <Compile Include="Cara.cs" />
     <Compile Include="Escenario.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="ObjetoFisico.cs" />
     <Compile Include="Partes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Punto.cs" />

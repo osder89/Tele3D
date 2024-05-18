@@ -98,6 +98,4 @@ namespace PlanoGenerico
             GL.End();
         }
     }
-
-
 }

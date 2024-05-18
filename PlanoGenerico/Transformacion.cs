@@ -16,13 +16,15 @@ namespace PlanoGenerico
         public Punto Origen { get; set; }
         public string Eje { get; set; }
         public float Grados { get; set; }
+        public float Duracion { get; set; }
 
-        public Transformacion(string tipo, float cantidadX, float cantidadY, float cantidadZ)
+        public Transformacion(string tipo, float cantidadX, float cantidadY, float cantidadZ, float duracion)
         {
             Tipo = tipo;
             CantidadX = cantidadX;
             CantidadY = cantidadY;
             CantidadZ = cantidadZ;
+            Duracion = duracion;
         }
 
         public Transformacion(string tipo, float cantidadEscala, Punto origen)
